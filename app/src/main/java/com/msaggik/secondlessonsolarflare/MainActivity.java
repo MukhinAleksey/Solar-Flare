@@ -8,7 +8,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     // поля
-    private int[] delayMinute = {60, 70, 85}; // задержка прихода сигнала с Марса, Юпитера, Сатурна (в минутах)
+    private int[] delayMinute = {20, 42, 85}; // задержка прихода сигнала с Марса, Юпитера, Сатурна (в минутах)
     private int[] volumeData = {14, 1250, 883}; // количество информации в час с Марса, Юпитера, Сатурна
     private int[] solarFlareDuration = {60, 70, 85}; // длительность солнечной вспышки на Марсе, Юпитере, Сатурне (в минутах)
     private int coreFrequency = 3; // скорость компьютера в секунду
