@@ -2,13 +2,14 @@ package com.msaggik.secondlessonsolarflare;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     // поля
-    private int[] delayMinute = {20, 42, 85}; // задержка прихода сигнала с Марса, Юпитера, Сатурна (в минутах)
+    private int[] solarFlareDuration = {60, 70, 85}; // Длительность солнечной вспышки на Марсе, Юпитере, Сатурне (в минутах)
 
     private int[] volumeData = {14, 1250, 883}; // количество информации в час с Марса, Юпитера, Сатурна
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView output; // окно вывода на экран смартфона решения задачи
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         output = findViewById(R.id.output);
 
         // вывод данных на экран смартфона
-        output.setText(coreTime(delayMinute, volumeData, coreFrequency) + " секунд");
+        output.setText(coreTime(solarFlareDuration, volumeData, coreFrequency) + " секунд");
     }
+
 
     // МОДУЛЬ 1
     // метод конвертирования времени задержки из минут в секунды (задержка в минутах)
