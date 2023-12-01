@@ -1,7 +1,6 @@
 package com.msaggik.secondlessonsolarflare;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -9,10 +8,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     // поля
-    private int[] solarFlareDuration = {60, 70, 85}; // Длительность солнечной вспышки на Марсе, Юпитере, Сатурне (в минутах)
-
+    private int[] delayMinute = {60, 70, 85}; // задержка прихода сигнала с Марса, Юпитера, Сатурна (в минутах)
     private int[] volumeData = {14, 1250, 883}; // количество информации в час с Марса, Юпитера, Сатурна
-
+    private int[] solarFlareDuration = {60, 70, 85}; // длительность солнечной вспышки на Марсе, Юпитере, Сатурне (в минутах)
     private int coreFrequency = 3; // скорость компьютера в секунду
 
     private TextView output; // окно вывода на экран смартфона решения задачи
@@ -27,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
         output = findViewById(R.id.output);
 
         // вывод данных на экран смартфона
-        output.setText(coreTime(solarFlareDuration, volumeData, coreFrequency) + " секунд");
+        output.setText(coreTime(delayMinute, volumeData, coreFrequency, solarFlareDuration) + " секунд");
     }
-
 
     // МОДУЛЬ 1
     // метод конвертирования времени задержки из минут в секунды (задержка в минутах)
@@ -45,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // МОДУЛЬ 3 (использующий МОДУЛИ 1-2)
     // метод вычисления времени обработки компьютером приходящей информации в секундах (массив задержек, массив объёмов данных, скорость компьютера)
-    private int coreTime(int[] delayMinute, int[] volumeData, int frequency) {
+    private int coreTime(int[] delayMinute, int[] volumeData, int frequency, int[] solarFlareDuration) {
 
         int[] delay = new int[delayMinute.length]; // создание пустого массива для задержек времени в секундах
         for (int i = 0; i < delay.length; i++) { // инициализация данного массива этого массива конвертированными данными (из минут в секунды)
@@ -55,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         int[] volume = new int[volumeData.length]; // создание пустого массива для времени обработки компьютером данных от спутника (в секундах)
         for (int i = 0; i < volume.length; i++) { // инициализация данного массива
             volume[i] = volumeTime(frequency, volumeData[i]); // определение времени обработки компьютером данных от одного спутника
+        }
+
+        // Обновление времени обработки данных при наступлении солнечной вспышки
+        for (int i = 0; i < delay.length; i++) {
+            delay[i] += delaySecond(solarFlareDuration[i]); // Увеличиваем задержку на время солнечной вспышки
         }
 
         int count = 0; // счётчик времени работы ядра компьютера
